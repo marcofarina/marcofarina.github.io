@@ -1,0 +1,43 @@
+.site-book {
+    border-radius: 20px; /* Rende gli angoli del quadrato nitidi */
+    width: 400px; /* Imposta una larghezza fissa */
+    height: 400px; /* Imposta un'altezza fissa per rendere il box un quadrato */
+    color: white;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+    transition: transform 0.3s;
+}
+
+.site-book:hover {
+    transform: scale(1.05);
+}
+
+.site-book.disabled {
+    pointer-events: none; /* Disabilita tutte le interazioni con il mouse */
+    cursor: default; /* Imposta il cursore predefinito invece di un puntatore */
+    box-shadow: none;
+}
+
+
+.bg-red { background-color: #FF0000; }
+.bg-orange { background-color: #FFA500; }
+.bg-yellow { background-color: #FFFF00; }
+.bg-green { background-color: #008000; }
+.bg-blue { background-color: #007bff; }
+.bg-violet { background-color: #8A2BE2; }
+
+.bg-red.disabled { background-color: #ffc0c0; } /* Rosso disabilitato */
+.bg-orange.disabled { background-color: #ffd097; } /* Arancione disabilitato */
+.bg-yellow.disabled { background-color: #ffffc2; } /* Giallo disabilitato */
+.bg-green.disabled { background-color: #d9ffe1; } /* Verde disabilitato */
+.bg-blue.disabled { background-color: #cfe6ff; } /* Blu disabilitato */
+.bg-violet.disabled { background-color: #ead5ff; } /* Violetto disabilitato */
+
+.site-book-icon {
+    max-width: 150px;
+}
+
+h3 {
+    margin-top: 20px;
+}
