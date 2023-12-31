@@ -1,7 +1,5 @@
 .site-book {
     border-radius: 20px; /* Rende gli angoli del quadrato nitidi */
-    width: 400px; /* Imposta una larghezza fissa */
-    height: 400px; /* Imposta un'altezza fissa per rendere il box un quadrato */
     color: white;
     padding: 30px;
     text-align: center;
@@ -10,7 +8,7 @@
 }
 
 .site-book:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .site-book.disabled {
@@ -36,6 +34,9 @@
 
 .site-book-icon {
     max-width: 150px;
+}
+.hero-section {
+    /* Aggiungi qui lo stile per la sezione hero, ad esempio un colore di sfondo o un'immagine di sfondo */
 }
 
 h3 {

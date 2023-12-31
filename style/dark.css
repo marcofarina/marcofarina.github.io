@@ -1,0 +1,16 @@
+/* Stili per la dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: white;
+        /* Altri stili per la modalità scura */
+    }
+
+    /* Personalizza altri elementi per la modalità scura */
+    .navbar {
+        background-color: black;
+        /* Altri stili della navbar per la modalità scura */
+    }
+
+    /* Puoi continuare ad aggiungere stili per altri componenti qui */
+}

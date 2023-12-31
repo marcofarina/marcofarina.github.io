@@ -4,84 +4,107 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rainbow Bits</title>
+
+    <link rel="icon" type="image/svg+xml" href="media/rb-icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="media/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="media/apple-touch-icon-152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="media/apple-touch-icon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="media/apple-touch-icon-76.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="style/style.css" rel="stylesheet">
+    <link href="style/dark.css" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Navbar Fissa in Alto -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Rainbow Bits</a>
+            <a class="navbar-brand" href="#">
+                <img src="media/rb-icon.svg" alt="Rainbow Bits Logo" width="50" height="50" class="d-inline-block">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link text-light active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Libri</a>
+                        <a class="nav-link text-light" href="#">Libri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contatti</a>
+                        <a class="nav-link text-light" href="#">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Value for value</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <main role="main">
+        <div class="hero-section py-4">
+            <div class="container">
+                <div class="align-items-center">
+                    <img src="media/rb-hero-logo.svg" alt="Logo" class="img-fluid hero-logo">
+                </div>
+            </div>
+        </div>
 
-    <div class="container my-5">
-        <div class="row">
-            <!-- Red Box -->
-            <div class="col-md-4 mb-4">
-                <div class="site-book bg-red disabled">
-                    <h3></h3>
-                </div>
-            </div>
-            <!-- Orange Box -->
-            <div class="col-md-4 mb-4">
-                <div class="site-book bg-orange disabled">
-                    <h3></h3>
-                </div>
-            </div>
-            <!-- Yellow Box -->
-            <div class="col-md-4 mb-4">
-                <div class="site-book bg-yellow disabled">
-                    <h3></h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Green Box -->
-            <div class="col-md-4 mb-4">
-                <div class="site-book bg-green disabled">
-                    <h3></h3>
-                </div>
-            </div>
-            <!-- Blue Box -->
-            <div class="col-md-4 mb-4">
-                <a href="https://www.rainbowbits.cloud/python-doesnt-byte/python-doesn-t-byte.html" class="text-decoration-none text-reset">
-                    <div class="site-book bg-blue">
-                        <!-- Logo -->
-                        <div class="my-3">
-                            <img src="media/python-doesnt-byte.png" alt="Python Doesn't Byte" class="img-fluid site-book-icon">
-                        </div>
-                        <h3>Python Doesn't Byte</h3>
-                        <p class="mt-2">
-                            Un libro open source di informatica su Python per la scuola secondaria di secondo grado.
-                        </p>
+
+        <div class="container my-5">
+            <!--<div class="row">
+                 Red Box
+                <div class="col-md-4 mb-4">
+                    <div class="site-book bg-red disabled">
+                        <h3></h3>
                     </div>
-                </a>
-            </div>
-            <!-- Violet Box -->
-            <div class="col-md-4 mb-4">
-                <div class="site-book bg-violet disabled">
-                    <h3></h3>
                 </div>
+                <div class="col-md-4 mb-4">
+                    <div class="site-book bg-orange disabled">
+                        <h3></h3>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="site-book bg-yellow disabled">
+                        <h3></h3>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row justify-content-center">
+                <!-- Green Box
+                <div class="col-md-4 mb-4">
+                    <div class="site-book bg-green disabled">
+                        <h3></h3>
+                    </div>
+                </div>-->
+                <!-- Python Doesn't Byte -->
+                <div class="col-md-4 mb-4">
+                    <a href="https://www.rainbowbits.cloud/python-doesnt-byte/python-doesn-t-byte.html" class="text-decoration-none text-reset">
+                        <div class="site-book bg-blue">
+                            <!-- Logo -->
+                            <div class="my-3">
+                                <img src="media/python-doesnt-byte.png" alt="Python Doesn't Byte" class="img-fluid site-book-icon">
+                            </div>
+                            <h3>Python Doesn't Byte</h3>
+                            <p class="mt-2">
+                                Un libro open source di informatica su Python per la scuola secondaria di secondo grado.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Violet Box
+                <div class="col-md-4 mb-4">
+                    <div class="site-book bg-violet disabled">
+                        <h3></h3>
+                    </div>
+                </div>-->
             </div>
         </div>
-    </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </main>
+    <script src="js/theme-switcher.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
