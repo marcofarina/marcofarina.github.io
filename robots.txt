@@ -1,7 +1,9 @@
 # robots.txt — rainbowbits.cloud
 # Robots Exclusion Protocol (RFC 9309). I crawler cercano questo file solo alla
 # radice dell'host: lo serve il sito utente marcofarina.github.io e vale per
-# tutti i sottositi pubblicati sotto il dominio (/python-doesnt-byte/, ecc.).
+# tutti i sottositi pubblicati come cartelle del dominio (/bitgrade/, ecc.).
+# I progetti con un sottodominio proprio hanno il loro robots.txt: per esempio
+# Python Doesn't Byte, a https://python.rainbowbits.cloud/robots.txt.
 
 # Tutto indicizzabile. Le pagine da escludere (demo, test) portano il proprio
 # meta robots "noindex", che è più preciso di un Disallow: un Disallow
@@ -9,5 +11,5 @@
 User-agent: *
 Allow: /
 
-# Una riga per ogni sottosito che pubblica una sitemap.
-Sitemap: https://rainbowbits.cloud/python-doesnt-byte/sitemap.xml
+# Per ora nessun sottosito sotto rainbowbits.cloud pubblica una sitemap. Quando
+# ce ne sarà una, aggiungere qui la sua riga Sitemap.
