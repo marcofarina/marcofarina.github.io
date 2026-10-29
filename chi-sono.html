@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chi sono · Rainbow Bits</title>
+<link rel="icon" type="image/svg+xml" href="media/rb-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@600;800&display=swap">
+<style>
+:root {
+  --void: #05070f; --ink: #e9ecf7; --muted: #8f96b3; --faint: #4b5273; --line: rgba(160, 176, 232, .16);
+  --accent: #29b6ff;
+  --f-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+html { background: var(--void); }
+body { margin: 0; background: radial-gradient(90% 60% at 20% 0%, #0b1022, var(--void) 70%) no-repeat, var(--void); color: var(--ink); font: 17px/1.6 var(--f-body);
+  padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: calc(18px + env(safe-area-inset-top, 0px)) 18px; max-width: 760px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 600 15px var(--f-display); }
+.brand img { width: 34px; height: 34px; }
+.back { font: 12px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); }
+main { max-width: 760px; margin: 0 auto; padding-block: 64px 96px; }
+.eyebrow { font: 11px var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+h1 { font: 800 clamp(32px, 6vw, 52px)/1.05 var(--f-display); margin: 0 0 32px; text-wrap: balance; }
+p { margin: 0 0 18px; color: var(--muted); max-width: 62ch; }
+p strong { color: var(--ink); }
+.tlink { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.note { font-size: 14px; color: var(--faint); border-top: 1px solid var(--line); padding-top: 18px; margin-top: 40px; }
+.spectrum { height: 4px; border-radius: 2px; margin-bottom: 40px; width: 120px; background: linear-gradient(90deg, #ff3355, #ff8a1f, #ffd21a, #2fd06a, #29b6ff, #4a6dff, #a35cff); }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html"><img src="media/rb-icon.svg" alt=""><span>Rainbow Bits</span></a>
+  <a class="back" href="index.html">← Torna allo spettro</a>
+</header>
+<main>
+  <div class="spectrum" aria-hidden="true"></div>
+  <p class="eyebrow">Chi sono</p>
+  <h1>Marco Farina</h1>
+  <p>Insegno e scrivo libri liberi da leggere, usare e modificare, pensati per la scuola secondaria di secondo grado ma aperti a chiunque voglia imparare.</p>
+  <p>Rainbow Bits è il posto dove li raccolgo: ogni libro ha un colore dello spettro, e intorno ai libri girano progetti più piccoli, esperimenti e risorse.</p>
+  <p class="note">Bozza: qui andranno il tuo percorso, le materie che insegni e come contattarti.</p>
+</main>
+</body>
+</html>

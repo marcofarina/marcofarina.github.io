@@ -73,6 +73,7 @@ a { color: inherit; }
 .reveal:hover, .reveal[aria-pressed="true"] { color: var(--ink); border-color: var(--violet); box-shadow: 0 0 18px rgba(163, 92, 255, .35); }
 
 /* Etichette dei raggi */
+.slot[hidden] { display: none; }
 .slots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .slot {
   position: absolute; left: 0; top: 0; width: var(--lw, 300px);
@@ -122,7 +123,8 @@ a { color: inherit; }
 .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
 .cols h3 { font-family: var(--f-display); font-weight: 600; font-size: 18px; margin: 0 0 14px; }
 .cols p { margin: 0 0 12px; color: var(--muted); max-width: 62ch; }
-.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.sec-title { font-family: var(--f-display); font-weight: 600; font-size: 18px; margin: 0 0 20px; }
+.feed { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 40px; }
 .feed li { display: grid; grid-template-columns: 10px 1fr; gap: 12px; align-items: baseline; }
 .feed li i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); box-shadow: 0 0 8px var(--c); }
 .feed b { display: block; font-weight: 700; }
@@ -132,6 +134,7 @@ a { color: inherit; }
 footer.band-sec { padding-block: 40px 56px; }
 footer .wrap { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; align-items: end; }
 footer p { margin: 0; color: var(--faint); font-size: 14px; max-width: 70ch; }
+footer .foot-side { display: grid; gap: 16px; }
 footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--orange), var(--yellow), var(--green), var(--azure), var(--blue), var(--violet), transparent); opacity: .8; }
 
 /* ---------- Mobile ---------- */
@@ -156,8 +159,8 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   <a class="brand" href="#"><img src="media/rb-icon.svg" alt=""><span>Rainbow Bits</span></a>
   <nav aria-label="Principale">
     <a href="#spettro">Libri</a>
-    <a href="#chi-sono">Chi sono</a>
-    <a href="#v4v">Value for value</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="value-for-value.html">Value for value</a>
     <a href="#contatti">Contatti</a>
   </nav>
 </header>
@@ -170,7 +173,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     <div class="intro">
       <p class="eyebrow">Libri e progetti open source</p>
       <h1>Una sorgente, <em>sette colori</em></h1>
-      <p>Rainbow Bits raccoglie i miei libri open source per la scuola. Ogni colore dello spettro porta a un libro.</p>
+      <p>Rainbow Bits raccoglie libri e progetti open source per la scuola.</p>
     </div>
 
     <div class="stage" aria-hidden="true"></div>
@@ -183,35 +186,26 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     </aside>
   </section>
 
-  <section class="band-sec" id="chi-sono">
-    <div class="wrap cols">
-      <div>
-        <h3>Chi sono</h3>
-        <p>Sono Marco Farina e insegno. Scrivo libri liberi da leggere, usare e modificare, pensati per la scuola secondaria di secondo grado ma aperti a chiunque voglia imparare.</p>
-        <p>Ogni libro ha un colore. I colori ancora spenti sono i libri che devono arrivare.</p>
-      </div>
-      <div>
-        <h3>Dal laboratorio</h3>
-        <ul class="feed">
-          <li style="--c: var(--azure)"><i></i><div><b>Python Doesn’t Byte</b><small>esempio · ultimo aggiornamento del libro</small></div></li>
-          <li style="--c: var(--orange)"><i></i><div><b>Cypherpunk 2140</b><small>esempio · annuncio in arrivo</small></div></li>
-          <li style="--c: var(--violet)"><i></i><div><b>Dall’ultravioletto</b><small>esempio · un piccolo progetto</small></div></li>
-        </ul>
-        <p class="note">Anteprima: qui comparirebbero in automatico le novità dei sottositi.</p>
-      </div>
-      <div id="v4v">
-        <h3>Value for value</h3>
-        <p>I libri sono gratuiti. Se ti sono stati utili, restituisci il valore che pensi abbiano: una segnalazione, un contributo al codice, una donazione.</p>
-        <p id="contatti">Il codice di tutto è su <a class="tlink" href="https://github.com/marcofarina">GitHub</a>.</p>
-      </div>
+  <section class="band-sec" id="novita">
+    <div class="wrap">
+      <h3 class="sec-title">Dal laboratorio</h3>
+      <ul class="feed">
+        <li style="--c: var(--azure)"><i></i><div><b>Python Doesn’t Byte</b><small>esempio · ultimo aggiornamento del libro</small></div></li>
+        <li style="--c: var(--yellow)"><i></i><div><b>Macchina Enigma</b><small>esempio · nuova versione del simulatore</small></div></li>
+        <li style="--c: var(--violet)"><i></i><div><b>Dall’ultravioletto</b><small>esempio · un nuovo esperimento</small></div></li>
+      </ul>
+      <p class="note">Anteprima: qui comparirebbero in automatico le novità dei sottositi.</p>
     </div>
   </section>
 </main>
 
 <footer class="band-sec">
   <div class="wrap">
-    <p>Perché sette colori? Lo spettro visibile è continuo, e i colori sono infiniti. Fu Isaac Newton a dividerlo in sette, per analogia con le sette note della scala musicale. Oltre i due estremi l’occhio non vede più nulla, ma la luce continua: nell’ultravioletto nascono gli esperimenti, nell’infrarosso si raffreddano i progetti conclusi.</p>
-    <div class="spectrum" aria-hidden="true"></div>
+    <p>Perché sette colori? Lo spettro visibile è continuo, e i colori sono infiniti. Fu Isaac Newton a dividerlo in sette, per analogia con le sette note della scala musicale. Oltre i due estremi l’occhio non vede più nulla, ma la luce continua: nell’ultravioletto nascono gli esperimenti, nell’infrarosso stanno le risorse e i progetti che si sono raffreddati.</p>
+    <div class="foot-side" id="contatti">
+      <div class="spectrum" aria-hidden="true"></div>
+      <p>Il codice di tutto è su <a class="tlink" href="https://github.com/marcofarina">GitHub</a>.</p>
+    </div>
   </div>
 </footer>
 
@@ -220,28 +214,29 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
 (() => {
   // ---------- Dati: canali dello spettro (0 = IR, 8 = UV) ----------
   const SLOTS = [
-    { band: 'IR', color: '#ff2a2a', hidden: true, label: 'Infrarosso · archivio' },
+    { band: 'IR', color: '#ff2a2a', hidden: true, label: 'Infrarosso · risorse e archivio' },
     { name: 'Rosso', color: '#ff3355', state: 'free' },
-    { name: 'Arancione', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', sub: 'Libro · Bitcoin',
+    { name: 'Arancione', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', subject: 'Bitcoin', sub: 'Libro su Bitcoin',
       desc: 'Il libro su Bitcoin: denaro, reti, incentivi. Nasce insieme al libro di crittografia, il colore accanto.', link: 3 },
-    { name: 'Giallo', color: '#ffd21a', state: 'soon', title: 'Crittografia', sub: 'Libro · Crittografia',
+    { name: 'Giallo', color: '#ffd21a', state: 'soon', title: 'Crittografia', subject: 'Crittografia', sub: 'Libro di crittografia',
       desc: 'Dai cifrari classici alle firme digitali. È la base su cui poggia Cypherpunk 2140, il colore accanto.', link: 2 },
     { name: 'Verde', color: '#2fd06a', state: 'free' },
-    { name: 'Azzurro', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', sub: 'Libro · Python per le superiori',
+    { name: 'Azzurro', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', subject: 'Informatica', sub: 'Libro di informatica con Python',
       desc: 'Un libro open source di informatica su Python per la scuola secondaria di secondo grado.', href: 'https://python.rainbowbits.cloud/', logo: 'media/python-doesnt-byte.png', cta: 'Apri il libro' },
     { name: 'Blu', color: '#4a6dff', state: 'free' },
-    { name: 'Viola', color: '#a35cff', state: 'free' },
+    { name: 'Viola', color: '#a35cff', state: 'soon', title: 'AI for Education', subject: 'Intelligenza artificiale', sub: 'Libro sull’IA generativa',
+      desc: 'Imparare a usare l’intelligenza artificiale generativa: modelli linguistici, prompt, agenti. Il colore più energetico, accanto agli esperimenti.' },
     { band: 'UV', color: '#b07bff', hidden: true, label: 'Ultravioletto · esperimenti' },
   ];
   // Satelliti: progetti minori affini a un libro, su un raggio sottile accanto al suo
   const SATS = [
-    { parent: 3, title: 'Simulatore Enigma', status: 'in sviluppo',
+    { parent: 3, title: 'Macchina Enigma', subject: 'Crittografia', status: 'in sviluppo',
       desc: 'Una macchina Enigma da smontare e far girare nel browser: rotori, riflettore, pannello dei collegamenti.' },
   ];
   const tint = (hex, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * (1 - k) + 255 * k).toString(16).padStart(2, '0')).join('');
   SATS.forEach(s => SLOTS.push({ ...s, sat: true, state: 'soon', name: SLOTS[s.parent].name, color: tint(SLOTS[s.parent].color, .3) }));
   const HIDDEN = {
-    0: [{ t: 'Progetto concluso α' }, { t: 'Progetto concluso β' }],
+    0: [{ t: 'Risorse per docenti', href: '#gumroad' }, { t: 'Progetto concluso α' }],
     8: [{ t: 'Esperimento γ' }, { t: 'Esperimento δ' }],
   };
   const NC = SLOTS.length;
@@ -264,14 +259,17 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
       el = document.createElement('div');
       el.className = 'slot band';
       el.innerHTML = `<span class="t">${s.label}</span>`;
+    } else if (s.state === 'free') {
+      el = document.createElement('div');
+      el.className = 'slot';
+      el.hidden = true;
     } else {
       el = document.createElement(s.href ? 'a' : 'div');
       if (s.href) el.href = s.href; else el.tabIndex = 0;
       el.className = s.sat ? 'slot sat' : 'slot';
       el.dataset.state = s.state;
       el.setAttribute('role', 'listitem');
-      const title = s.title || 'Colore libero';
-      const sub = s.sub || (s.state === 'free' ? 'In attesa di un libro' : '');
+      const title = s.title, sub = s.sub || '';
       el.innerHTML = s.sat ? `<span class="t">${title}<small> · ${s.status}</small></span>` :
         `<span class="t">${title}</span>` + (s.state === 'soon' ? `<span class="s">${sub} · in arrivo</span>` : `<span class="s">${sub}</span>`);
       el.addEventListener('pointerenter', () => { labelHover = c; select(c); });
@@ -287,10 +285,10 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   for (const c of [0, 8]) {
     const row = document.createElement('div');
     row.className = 'chips';
-    row.innerHTML = HIDDEN[c].map(h => `<a class="chip" href="#" title="Segnaposto">${h.t}</a>`).join('');
+    row.innerHTML = HIDDEN[c].map(h => h.href ? `<a class="chip" href="${h.href}">${h.t}</a>` : `<a class="chip" href="#" data-placeholder title="Segnaposto">${h.t}</a>`).join('');
     row.style.setProperty('--c', SLOTS[c].color);
     row.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', e => e.preventDefault());
+      if (a.hasAttribute('data-placeholder') || a.getAttribute('href').startsWith('#')) a.addEventListener('click', e => e.preventDefault());
       a.addEventListener('focus', () => unseenEl.classList.add('all'));
       a.addEventListener('blur', () => { if (!revealAll) unseenEl.classList.remove('all'); });
     });
@@ -299,22 +297,25 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   }
 
   // ---------- Pannello dettagli ----------
-  const swatches = st => SLOTS.filter(s => s.state === st && !s.sat).map(s => `<i style="--c:${s.color}"></i>`).join('');
+  const books = st => SLOTS.filter(s => s.state === st && !s.sat && !s.hidden);
+  const swatches = st => books(st).map(s => `<i style="--c:${s.color}"></i>`).join('');
+  const WORDS = ['nessun', 'un', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci'];
+  const count = (n, one, many) => `${WORDS[n] || n} ${n === 1 ? one : many}`;
+  const cap = t => t[0].toUpperCase() + t.slice(1);
   function renderDetail(c) {
     if (c < 0) {
       detailEl.innerHTML = `
         <p class="eyebrow">Lo spettro oggi</p>
         <ul class="legend">
-          <li><span class="sw">${swatches('online')}</span>1 libro online</li>
-          <li><span class="sw">${swatches('soon')}</span>2 libri in arrivo</li>
-          <li><span class="sw">${SLOTS.filter(s => s.state === 'free').map(() => '<i class="off"></i>').join('')}</span>4 colori liberi</li>
-          <li><span class="sw">${SLOTS.filter(s => s.sat).map(s => `<i style="--c:${s.color};width:5px;height:5px"></i>`).join('')}</span>1 satellite in sviluppo</li>
+          <li><span class="sw">${swatches('online')}</span>${cap(count(books('online').length, 'libro online', 'libri online'))}</li>
+          <li><span class="sw">${swatches('soon')}</span>${cap(count(books('soon').length, 'libro in arrivo', 'libri in arrivo'))}</li>
+          <li><span class="sw">${SLOTS.filter(s => s.sat).map(s => `<i style="--c:${s.color};width:5px;height:5px"></i>`).join('')}</span>${cap(count(SLOTS.filter(s => s.sat).length, 'satellite', 'satelliti'))}</li>
         </ul>
-        <p>Passa su un raggio per esplorarlo. Oltre il viola nascono gli esperimenti, oltre il rosso riposano i progetti conclusi, ma a occhio nudo non si vedono.</p>`;
+        <p>Passa su un raggio per esplorarlo. Oltre il viola nascono gli esperimenti, oltre il rosso ci sono risorse e progetti conclusi, ma a occhio nudo non si vedono.</p>`;
       return;
     }
     const s = SLOTS[c];
-    const head = `<p class="eyebrow" style="color:${s.color}">${s.sat ? `${s.name} · accanto a ${SLOTS[s.parent].title}` : s.name}</p>`;
+    const head = `<p class="eyebrow" style="color:${s.color}">${s.sat ? `${s.subject} · satellite di ${SLOTS[s.parent].title}` : s.subject}</p>`;
     if (s.sat) {
       detailEl.innerHTML = head + `<h2>${s.title}</h2><p>${s.desc}</p><span class="pill" style="color:${s.color}">${s.status}</span>`;
     } else if (s.state === 'online') {
@@ -323,8 +324,6 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
         <a class="cta" href="${s.href}" style="--c:${s.color}">${s.cta} →</a>`;
     } else if (s.state === 'soon') {
       detailEl.innerHTML = head + `<h2>${s.title}</h2><p>${s.desc}</p><span class="pill" style="color:${s.color}">In arrivo</span>`;
-    } else {
-      detailEl.innerHTML = head + `<h2>Colore libero</h2><p>Questo raggio aspetta il suo libro. Quando arriverà, si accenderà.</p>`;
     }
   }
   let selected = -2;
@@ -389,9 +388,10 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     const A = SLOTS.map((s, c) => ({ x: ax, y: s.sat ? mainY(s.parent) + 45 : mainY(c) }));
     const seg = (a, b) => { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy); return { l, dx: dx / l, dy: dy / l, nx: -dy / l, ny: dx / l }; };
     const s1 = seg(S, E), s2 = seg(E, X), s3 = A.map(a => seg(X, a));
-    const total = s3.map(r => s1.l + s2.l + r.l);
+    const reach = SLOTS.map(s => s.state === 'free' ? .58 : 1);
+    const total = s3.map((r, c) => s1.l + s2.l + r.l * reach[c]);
     const lw = Math.max(180, W - ax - 16 - 24);
-    return { W, H, mobile, P, s, T, BL, BR, E, X, S, A, s1, s2, s3, total, ax, lw,
+    return { W, H, mobile, P, s, T, BL, BR, E, X, S, A, s1, s2, s3, reach, total, ax, lw,
       beamW: mobile ? 5 : 7, rayW: mobile ? 7 : 12, cube: mobile ? 4 : 5.2 };
   }
   function placeLabels() {
@@ -494,7 +494,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     SLOTS.forEach((s, c) => {
       const m = additive(new THREE.Color(s.color), 0, rayTex);
       rayMats.push(m);
-      optics.add(quad(L.X, L.A[c], 2, (s.sat ? .4 : 1) * L.rayW + 3, m, -20));
+      optics.add(quad(L.X, lerp2(L.X, L.A[c], L.reach[c]), 2, (s.sat ? .4 : s.state === 'free' ? 2.6 : 1) * L.rayW + 3, m, -20));
     });
     beamMat = additive(0xffffff, .16, rayTex);
     optics.add(quad(L.S, L.E, L.beamW + 6, L.beamW + 4, beamMat, -20));
@@ -587,7 +587,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     if (mouse.in && mouse.x > L.X.x + 10) {
       let best = L.mobile ? 22 : 16;
       for (let c = 0; c < NC; c++) {
-        if (SLOTS[c].hidden) continue;
+        if (SLOTS[c].hidden || SLOTS[c].state === 'free') continue;
         const d = distSeg(mouse.x, mouse.y, L.X, L.A[c]);
         if (d < best) { best = d; rayHover = c; }
       }
@@ -617,7 +617,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     exitGlow.material.opacity = .26 + Math.sin(time * 2) * .04 * motion;
     stars.position.set(-mouse.nx * 14 * motion, mouse.ny * 10 * motion, 0);
 
-    const { S, E, X, s1, s2, s3, total, beamW, rayW } = L;
+    const { S, E, X, s1, s2, s3, reach, total, beamW, rayW } = L;
     const R = L.mobile ? 60 : 85;
     for (let i = 0; i < N; i++) {
       const c = ch[i], h = hl[c];
@@ -631,9 +631,12 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
         const p = tt - s1.l;
         x = E.x + s2.dx * p; y = E.y + s2.dy * p; nx = s2.nx; ny = s2.ny; spread = beamW * (1 - p / s2.l * .5); sc *= .8;
       } else {
-        const r = s3[c]; q = tt - s1.l - s2.l; const u = q / r.l;
-        x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny; spread = beamW * .4 + u * rayW * (SLOTS[c].sat ? .4 : 1);
-        const tail = r.l - q; if (tail < 50) sc *= tail / 50;
+        const r = s3[c]; q = tt - s1.l - s2.l; const u = q / r.l, free = SLOTS[c].state === 'free';
+        x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny;
+        spread = beamW * .4 + u * rayW * (SLOTS[c].sat ? .4 : free ? 4.5 : 1);
+        // i raggi senza progetto si sfrangiano e si spengono nel vuoto
+        const len = r.l * reach[c], tail = len - q, fadeLen = free ? len * .6 : 50;
+        if (tail < fadeLen) sc *= tail / fadeLen;
         sc *= 1 + h * .55;
       }
       if (tt < 30) sc *= tt / 30;
