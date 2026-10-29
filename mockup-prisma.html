@@ -61,7 +61,7 @@ a { color: inherit; }
 .detail .eyebrow { margin-bottom: 8px; }
 .detail .row { display: flex; gap: 14px; align-items: center; }
 .detail .row img { width: 56px; height: 56px; border-radius: 50%; flex: none; }
-.legend { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 4px; font-size: 14.5px; }
+.legend { list-style: none; margin: 0 0 12px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; font-size: 14px; }
 .legend li { display: flex; align-items: center; gap: 10px; }
 .legend .sw { display: inline-flex; gap: 3px; }
 .legend .sw i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); box-shadow: 0 0 8px var(--c); }
@@ -76,26 +76,30 @@ a { color: inherit; }
 .slots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .slot {
   position: absolute; left: 0; top: 0; width: var(--lw, 300px);
-  transform: translate(var(--x), var(--y)) translateY(-50%);
-  display: grid; grid-template-columns: 62px 1fr; column-gap: 12px; align-items: baseline;
+  transform: translate(var(--x), var(--y)) translateY(-12px);
+  display: grid; grid-template-columns: 1fr;
   text-decoration: none; color: var(--muted); pointer-events: auto; cursor: default;
-  transition: transform .35s cubic-bezier(.2, .8, .2, 1), color .25s;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1);
 }
-.slot::before { content: ""; position: absolute; left: -15px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); opacity: .5; }
-.slot .nm { font-family: var(--f-mono); font-size: 11.5px; color: var(--c); opacity: .75; font-variant-numeric: tabular-nums; }
-.slot .t { font-family: var(--f-display); font-size: 14px; font-weight: 400; color: var(--faint); min-width: 0; }
-.slot .s { grid-column: 2; font-size: 13px; color: var(--faint); min-width: 0; }
+.slot::before { content: ""; position: absolute; left: -15px; top: 12px; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); opacity: .5; }
+.slot .t { font-family: var(--f-display); font-size: 14px; line-height: 24px; font-weight: 400; color: color-mix(in oklab, var(--c) 32%, var(--faint)); min-width: 0; transition: color .3s, text-shadow .3s; }
+.slot .s { font-size: 13px; color: var(--faint); min-width: 0; }
 .slot[data-state="online"] { cursor: pointer; }
-.slot[data-state="online"] .t { color: var(--ink); font-weight: 600; font-size: 16px; }
+.slot[data-state="online"] .t { color: color-mix(in oklab, var(--c) 38%, var(--ink)); font-weight: 600; font-size: 16px; }
 .slot[data-state="online"] .s { color: var(--muted); }
 .slot[data-state="online"]::before { opacity: 1; }
-.slot[data-state="soon"] .t { color: var(--muted); font-weight: 600; }
+.slot[data-state="soon"] .t { color: color-mix(in oklab, var(--c) 42%, var(--muted)); font-weight: 600; }
 .slot[data-state="soon"] .s { color: var(--faint); }
 .slot[data-state="soon"]::before { opacity: .8; }
-.slot.hl { transform: translate(var(--x), var(--y)) translateY(-50%) translateX(8px); }
-.slot.hl .t, .slot.hl .nm { color: var(--c); opacity: 1; }
+.slot.hl { transform: translate(var(--x), var(--y)) translateY(-12px) translateX(8px); }
+.slot.hl .t { color: var(--c); text-shadow: 0 0 18px color-mix(in oklab, var(--c) 55%, transparent); }
 .slot.hl::before { opacity: 1; width: 9px; height: 9px; margin-top: -4.5px; }
 .slot.band { pointer-events: none; }
+.slot.sat::before { width: 5px; height: 5px; margin-top: -2.5px; top: 9px; }
+.slot.sat .t { font-size: 12.5px; line-height: 18px; }
+.slot.sat .t small { font-family: var(--f-body); font-size: 12px; color: var(--faint); }
+.slot.sat { transform: translate(var(--x), var(--y)) translateY(-9px); }
+.slot.sat.hl { transform: translate(var(--x), var(--y)) translateY(-9px) translateX(8px); }
 .slot.band .t { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
 .slot.band::before { background: transparent; border: 1px dashed var(--faint); box-shadow: none; opacity: 1; }
 
@@ -138,9 +142,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   .intro h1 { font-size: 30px; }
   .stage { position: relative; inset: auto; height: 620px; flex: none; }
   .detail { position: relative; left: auto; bottom: auto; margin: 0 16px 32px; width: auto; }
-  .slot { grid-template-columns: 1fr; }
-  .slot .nm { font-size: 10.5px; }
-  .slot .s { grid-column: 1; font-size: 12px; }
+  .slot .s { font-size: 12px; }
   .slot[data-state="online"] .t { font-size: 14.5px; }
   .slot .t { font-size: 13px; }
   .cols { grid-template-columns: 1fr; gap: 40px; }
@@ -166,7 +168,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     <div class="lamp" aria-hidden="true"></div>
 
     <div class="intro">
-      <p class="eyebrow">Spettro visibile · 380–780 nm</p>
+      <p class="eyebrow">Libri e progetti open source</p>
       <h1>Una sorgente, <em>sette colori</em></h1>
       <p>Rainbow Bits raccoglie i miei libri open source per la scuola. Ogni colore dello spettro porta a un libro.</p>
     </div>
@@ -208,7 +210,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
 
 <footer class="band-sec">
   <div class="wrap">
-    <p>Perché sette colori? Lo spettro visibile è continuo, e i colori sono infiniti. Fu Isaac Newton a dividerlo in sette, per analogia con le sette note della scala musicale. Le lunghezze d’onda indicate accanto ai libri sono valori tipici, non confini netti.</p>
+    <p>Perché sette colori? Lo spettro visibile è continuo, e i colori sono infiniti. Fu Isaac Newton a dividerlo in sette, per analogia con le sette note della scala musicale. Oltre i due estremi l’occhio non vede più nulla, ma la luce continua: nell’ultravioletto nascono gli esperimenti, nell’infrarosso si raffreddano i progetti conclusi.</p>
     <div class="spectrum" aria-hidden="true"></div>
   </div>
 </footer>
@@ -218,25 +220,33 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
 (() => {
   // ---------- Dati: canali dello spettro (0 = IR, 8 = UV) ----------
   const SLOTS = [
-    { band: 'IR', nm: '> 780 nm', color: '#ff2a2a', hidden: true, label: 'Infrarosso' },
-    { name: 'Rosso', nm: '700 nm', color: '#ff3355', state: 'free' },
-    { name: 'Arancione', nm: '610 nm', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', sub: 'Libro · Bitcoin',
+    { band: 'IR', color: '#ff2a2a', hidden: true, label: 'Infrarosso · archivio' },
+    { name: 'Rosso', color: '#ff3355', state: 'free' },
+    { name: 'Arancione', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', sub: 'Libro · Bitcoin',
       desc: 'Il libro su Bitcoin: denaro, reti, incentivi. Nasce insieme al libro di crittografia, il colore accanto.', link: 3 },
-    { name: 'Giallo', nm: '580 nm', color: '#ffd21a', state: 'soon', title: 'Crittografia', sub: 'Libro · Crittografia',
+    { name: 'Giallo', color: '#ffd21a', state: 'soon', title: 'Crittografia', sub: 'Libro · Crittografia',
       desc: 'Dai cifrari classici alle firme digitali. È la base su cui poggia Cypherpunk 2140, il colore accanto.', link: 2 },
-    { name: 'Verde', nm: '530 nm', color: '#2fd06a', state: 'free' },
-    { name: 'Azzurro', nm: '490 nm', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', sub: 'Libro · Python per le superiori',
+    { name: 'Verde', color: '#2fd06a', state: 'free' },
+    { name: 'Azzurro', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', sub: 'Libro · Python per le superiori',
       desc: 'Un libro open source di informatica su Python per la scuola secondaria di secondo grado.', href: 'https://python.rainbowbits.cloud/', logo: 'media/python-doesnt-byte.png', cta: 'Apri il libro' },
-    { name: 'Blu', nm: '460 nm', color: '#4a6dff', state: 'free' },
-    { name: 'Viola', nm: '410 nm', color: '#a35cff', state: 'free' },
-    { band: 'UV', nm: '< 380 nm', color: '#b07bff', hidden: true, label: 'Ultravioletto' },
+    { name: 'Blu', color: '#4a6dff', state: 'free' },
+    { name: 'Viola', color: '#a35cff', state: 'free' },
+    { band: 'UV', color: '#b07bff', hidden: true, label: 'Ultravioletto · esperimenti' },
   ];
+  // Satelliti: progetti minori affini a un libro, su un raggio sottile accanto al suo
+  const SATS = [
+    { parent: 3, title: 'Simulatore Enigma', status: 'in sviluppo',
+      desc: 'Una macchina Enigma da smontare e far girare nel browser: rotori, riflettore, pannello dei collegamenti.' },
+  ];
+  const tint = (hex, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * (1 - k) + 255 * k).toString(16).padStart(2, '0')).join('');
+  SATS.forEach(s => SLOTS.push({ ...s, sat: true, state: 'soon', name: SLOTS[s.parent].name, color: tint(SLOTS[s.parent].color, .3) }));
   const HIDDEN = {
-    0: [{ t: 'Piccolo progetto α' }, { t: 'Piccolo progetto β' }],
-    8: [{ t: 'Piccolo progetto γ' }, { t: 'Piccolo progetto δ' }],
+    0: [{ t: 'Progetto concluso α' }, { t: 'Progetto concluso β' }],
+    8: [{ t: 'Esperimento γ' }, { t: 'Esperimento δ' }],
   };
   const NC = SLOTS.length;
   const BASE = { free: .2, soon: .55, online: 1 };
+  const related = (f, c) => f >= 0 && f !== c && (SLOTS[f].link === c || SLOTS[c].parent === f || SLOTS[f].parent === c);
 
   const hero = document.querySelector('.hero');
   const stage = document.querySelector('.stage');
@@ -253,17 +263,17 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     if (s.hidden) {
       el = document.createElement('div');
       el.className = 'slot band';
-      el.innerHTML = `<span class="nm">${s.nm}</span><span class="t">${s.band} · invisibile</span>`;
+      el.innerHTML = `<span class="t">${s.label}</span>`;
     } else {
       el = document.createElement(s.href ? 'a' : 'div');
       if (s.href) el.href = s.href; else el.tabIndex = 0;
-      el.className = 'slot';
+      el.className = s.sat ? 'slot sat' : 'slot';
       el.dataset.state = s.state;
       el.setAttribute('role', 'listitem');
       const title = s.title || 'Colore libero';
       const sub = s.sub || (s.state === 'free' ? 'In attesa di un libro' : '');
-      el.innerHTML = `<span class="nm">${s.nm}</span><span class="t">${title}</span>` +
-        (s.state === 'soon' ? `<span class="s">${sub} · in arrivo</span>` : `<span class="s">${sub}</span>`);
+      el.innerHTML = s.sat ? `<span class="t">${title}<small> · ${s.status}</small></span>` :
+        `<span class="t">${title}</span>` + (s.state === 'soon' ? `<span class="s">${sub} · in arrivo</span>` : `<span class="s">${sub}</span>`);
       el.addEventListener('pointerenter', () => { labelHover = c; select(c); });
       el.addEventListener('pointerleave', () => { labelHover = -1; });
       el.addEventListener('focus', () => { labelHover = c; select(c); });
@@ -289,7 +299,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   }
 
   // ---------- Pannello dettagli ----------
-  const swatches = st => SLOTS.filter(s => s.state === st).map(s => `<i style="--c:${s.color}"></i>`).join('');
+  const swatches = st => SLOTS.filter(s => s.state === st && !s.sat).map(s => `<i style="--c:${s.color}"></i>`).join('');
   function renderDetail(c) {
     if (c < 0) {
       detailEl.innerHTML = `
@@ -298,13 +308,16 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
           <li><span class="sw">${swatches('online')}</span>1 libro online</li>
           <li><span class="sw">${swatches('soon')}</span>2 libri in arrivo</li>
           <li><span class="sw">${SLOTS.filter(s => s.state === 'free').map(() => '<i class="off"></i>').join('')}</span>4 colori liberi</li>
+          <li><span class="sw">${SLOTS.filter(s => s.sat).map(s => `<i style="--c:${s.color};width:5px;height:5px"></i>`).join('')}</span>1 satellite in sviluppo</li>
         </ul>
-        <p>Passa su un raggio per esplorarlo. Oltre il rosso e oltre il viola c’è dell’altro, ma a occhio nudo non si vede.</p>`;
+        <p>Passa su un raggio per esplorarlo. Oltre il viola nascono gli esperimenti, oltre il rosso riposano i progetti conclusi, ma a occhio nudo non si vedono.</p>`;
       return;
     }
     const s = SLOTS[c];
-    const head = `<p class="eyebrow" style="color:${s.color}">${s.nm} · ${s.name}</p>`;
-    if (s.state === 'online') {
+    const head = `<p class="eyebrow" style="color:${s.color}">${s.sat ? `${s.name} · accanto a ${SLOTS[s.parent].title}` : s.name}</p>`;
+    if (s.sat) {
+      detailEl.innerHTML = head + `<h2>${s.title}</h2><p>${s.desc}</p><span class="pill" style="color:${s.color}">${s.status}</span>`;
+    } else if (s.state === 'online') {
       detailEl.innerHTML = head + `<div class="row">${s.logo ? `<img src="${s.logo}" alt="">` : ''}<div><h2>${s.title}</h2></div></div>
         <p style="margin-top:10px">${s.desc}</p>
         <a class="cta" href="${s.href}" style="--c:${s.color}">${s.cta} →</a>`;
@@ -371,13 +384,9 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     const T = { x: P.x, y: P.y - .577 * s }, BL = { x: P.x - .5 * s, y: P.y + .289 * s }, BR = { x: P.x + .5 * s, y: P.y + .289 * s };
     const E = lerp2(T, BL, .58), X = lerp2(T, BR, .5);
     const S = mobile ? { x: E.x - .35 * (E.y + 40), y: -40 } : { x: -40, y: E.y + (E.x + 40) * .14 };
-    const A = SLOTS.map((_, c) => {
-      let y;
-      if (c === 0) y = oy + h * ys[0];
-      else if (c === NC - 1) y = oy + h * ys[1];
-      else y = oy + h * (ys[2] + (ys[3] - ys[2]) * (c - 1) / (NC - 3));
-      return { x: ax, y };
-    });
+    const MAIN = SLOTS.filter(s => !s.sat).length;
+    const mainY = c => c === 0 ? oy + h * ys[0] : c === MAIN - 1 ? oy + h * ys[1] : oy + h * (ys[2] + (ys[3] - ys[2]) * (c - 1) / (MAIN - 3));
+    const A = SLOTS.map((s, c) => ({ x: ax, y: s.sat ? mainY(s.parent) + 45 : mainY(c) }));
     const seg = (a, b) => { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy); return { l, dx: dx / l, dy: dy / l, nx: -dy / l, ny: dx / l }; };
     const s1 = seg(S, E), s2 = seg(E, X), s3 = A.map(a => seg(X, a));
     const total = s3.map(r => s1.l + s2.l + r.l);
@@ -485,7 +494,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     SLOTS.forEach((s, c) => {
       const m = additive(new THREE.Color(s.color), 0, rayTex);
       rayMats.push(m);
-      optics.add(quad(L.X, L.A[c], 2, L.rayW + 3, m, -20));
+      optics.add(quad(L.X, L.A[c], 2, (s.sat ? .4 : 1) * L.rayW + 3, m, -20));
     });
     beamMat = additive(0xffffff, .16, rayTex);
     optics.add(quad(L.S, L.E, L.beamW + 6, L.beamW + 4, beamMat, -20));
@@ -520,7 +529,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     size = new Float32Array(MAXN), speed = new Float32Array(MAXN), r0 = new Float32Array(MAXN * 2), rs = new Float32Array(MAXN * 2),
     offX = new Float32Array(MAXN), offY = new Float32Array(MAXN);
   let N = 0;
-  const WEIGHT = SLOTS.map(s => s.hidden ? 110 : s.state === 'online' ? 300 : s.state === 'soon' ? 150 : 70);
+  const WEIGHT = SLOTS.map(s => s.hidden ? 110 : s.sat ? 70 : s.state === 'online' ? 300 : s.state === 'soon' ? 150 : 70);
   function spawnAll() {
     const k = clamp(L.W * L.H / (1280 * 800), .45, 1.3);
     N = 0;
@@ -577,7 +586,8 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     rayHover = -1;
     if (mouse.in && mouse.x > L.X.x + 10) {
       let best = L.mobile ? 22 : 16;
-      for (let c = 1; c < NC - 1; c++) {
+      for (let c = 0; c < NC; c++) {
+        if (SLOTS[c].hidden) continue;
         const d = distSeg(mouse.x, mouse.y, L.X, L.A[c]);
         if (d < best) { best = d; rayHover = c; }
       }
@@ -586,9 +596,8 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     if (rayHover >= 0 && labelHover < 0 && !matchMedia('(pointer: coarse)').matches) select(rayHover);
     canvas.style.cursor = hov >= 0 && SLOTS[hov].href ? 'pointer' : '';
     const focus = hov >= 0 ? hov : selected;
-    const linked = focus >= 0 ? SLOTS[focus].link : undefined;
     for (let c = 0; c < NC; c++) {
-      const target = c === hov ? 1 : c === focus ? .55 : c === linked ? .45 : 0;
+      const target = c === hov ? 1 : c === focus ? .55 : related(focus, c) ? .45 : 0;
       hl[c] += (target - hl[c]) * Math.min(1, dt * 7);
       labelEls[c].classList.toggle('hl', c === focus || c === hov);
       if (SLOTS[c].hidden) {
@@ -623,7 +632,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
         x = E.x + s2.dx * p; y = E.y + s2.dy * p; nx = s2.nx; ny = s2.ny; spread = beamW * (1 - p / s2.l * .5); sc *= .8;
       } else {
         const r = s3[c]; q = tt - s1.l - s2.l; const u = q / r.l;
-        x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny; spread = beamW * .4 + u * rayW;
+        x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny; spread = beamW * .4 + u * rayW * (SLOTS[c].sat ? .4 : 1);
         const tail = r.l - q; if (tail < 50) sc *= tail / 50;
         sc *= 1 + h * .55;
       }
