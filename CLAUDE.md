@@ -1,6 +1,6 @@
 # Rainbow Bits: regole per la homepage
 
-Homepage hub dei progetti di Rainbow Bits (mockup attuale: `mockup-prisma.html`).
+Homepage hub dei progetti di Rainbow Bits (`index.html`; pagine `chi-sono.html` e `value-for-value.html`).
 
 ## Spettro
 - Ogni libro occupa un colore dello spettro visibile; i colori senza libro restano tracce tenui di cubetti, senza etichetta e non selezionabili.
