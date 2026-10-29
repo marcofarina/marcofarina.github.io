@@ -1,0 +1,679 @@
+<title>Prisma Rainbow Bits</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@400;600;800&display=swap">
+<style>
+/* Layout: palco a tutto schermo. Sorgente di bit a sinistra, prisma, ventaglio di raggi verso la colonna dei progetti a destra (in verticale su mobile). Sotto, tre sezioni sobrie. */
+:root {
+  --void: #05070f;
+  --void-2: #0b1022;
+  --ink: #e9ecf7;
+  --muted: #8f96b3;
+  --faint: #4b5273;
+  --line: rgba(160, 176, 232, .16);
+  --red: #ff3355; --orange: #ff8a1f; --yellow: #ffd21a; --green: #2fd06a;
+  --azure: #29b6ff; --blue: #4a6dff; --violet: #a35cff;
+  --f-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+html { background: var(--void); }
+body { background: var(--void); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Header ---------- */
+.top {
+  position: absolute; z-index: 5; inset: 0 0 auto 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-top: calc(18px + env(safe-area-inset-top, 0px)); padding-bottom: 18px;
+  padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 34px; height: 34px; }
+.brand span { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .02em; }
+.top nav { display: flex; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
+.top nav a { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; height: 100svh; min-height: 640px; max-height: 1000px; overflow: hidden; background: radial-gradient(120% 90% at 35% 55%, var(--void-2), var(--void) 70%); }
+#sky { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.stage { position: absolute; inset: 72px 0 0 0; pointer-events: none; }
+
+.intro { position: absolute; z-index: 3; left: max(24px, env(safe-area-inset-left, 0px)); top: 112px; max-width: 360px; pointer-events: none; }
+.eyebrow { white-space: nowrap; font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+.intro h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -.01em; margin: 0 0 16px; text-wrap: balance; }
+.intro h1 em { font-style: normal; background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--azure), var(--blue), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.intro p { margin: 0; color: var(--muted); max-width: 34ch; }
+
+/* Pannello dettagli */
+.detail {
+  position: absolute; z-index: 3; left: max(24px, env(safe-area-inset-left, 0px)); bottom: 36px; width: min(360px, calc(100% - 48px));
+  padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px;
+  background: rgba(8, 11, 24, .72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.detail .body { min-height: 128px; }
+.detail h2 { font-family: var(--f-display); font-weight: 600; font-size: 19px; line-height: 1.2; margin: 0 0 8px; text-wrap: balance; }
+.detail p { margin: 0 0 10px; font-size: 14.5px; color: var(--muted); }
+.detail .eyebrow { margin-bottom: 8px; }
+.detail .row { display: flex; gap: 14px; align-items: center; }
+.detail .row img { width: 56px; height: 56px; border-radius: 50%; flex: none; }
+.legend { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 4px; font-size: 14.5px; }
+.legend li { display: flex; align-items: center; gap: 10px; }
+.legend .sw { display: inline-flex; gap: 3px; }
+.legend .sw i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.legend .sw i.off { background: transparent; box-shadow: none; border: 1px solid var(--faint); }
+.cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 13px; font-weight: 600; text-decoration: none; color: var(--void); background: var(--c, var(--ink)); padding: 8px 14px; border-radius: 999px; }
+.cta:hover { filter: brightness(1.12); }
+.pill { display: inline-block; font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.reveal { margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: none; border: 1px dashed var(--faint); border-radius: 999px; padding: 7px 12px; }
+.reveal:hover, .reveal[aria-pressed="true"] { color: var(--ink); border-color: var(--violet); box-shadow: 0 0 18px rgba(163, 92, 255, .35); }
+
+/* Etichette dei raggi */
+.slots { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.slot {
+  position: absolute; left: 0; top: 0; width: var(--lw, 300px);
+  transform: translate(var(--x), var(--y)) translateY(-50%);
+  display: grid; grid-template-columns: 62px 1fr; column-gap: 12px; align-items: baseline;
+  text-decoration: none; color: var(--muted); pointer-events: auto; cursor: default;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), color .25s;
+}
+.slot::before { content: ""; position: absolute; left: -15px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); opacity: .5; }
+.slot .nm { font-family: var(--f-mono); font-size: 11.5px; color: var(--c); opacity: .75; font-variant-numeric: tabular-nums; }
+.slot .t { font-family: var(--f-display); font-size: 14px; font-weight: 400; color: var(--faint); min-width: 0; }
+.slot .s { grid-column: 2; font-size: 13px; color: var(--faint); min-width: 0; }
+.slot[data-state="online"] { cursor: pointer; }
+.slot[data-state="online"] .t { color: var(--ink); font-weight: 600; font-size: 16px; }
+.slot[data-state="online"] .s { color: var(--muted); }
+.slot[data-state="online"]::before { opacity: 1; }
+.slot[data-state="soon"] .t { color: var(--muted); font-weight: 600; }
+.slot[data-state="soon"] .s { color: var(--faint); }
+.slot[data-state="soon"]::before { opacity: .8; }
+.slot.hl { transform: translate(var(--x), var(--y)) translateY(-50%) translateX(8px); }
+.slot.hl .t, .slot.hl .nm { color: var(--c); opacity: 1; }
+.slot.hl::before { opacity: 1; width: 9px; height: 9px; margin-top: -4.5px; }
+.slot.band { pointer-events: none; }
+.slot.band .t { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+.slot.band::before { background: transparent; border: 1px dashed var(--faint); box-shadow: none; opacity: 1; }
+
+/* Ciò che non si vede: rivelato dalla luce del cursore */
+.unseen {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 35%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 35%, transparent 100%);
+}
+.unseen.all { -webkit-mask-image: none; mask-image: none; }
+.chips { position: absolute; left: 0; top: 0; transform: translate(var(--x), var(--y)) translateY(-50%); display: flex; gap: 8px; flex-wrap: wrap; width: var(--lw, 300px); }
+.chip { pointer-events: auto; font: 600 12px var(--f-mono); text-decoration: none; color: var(--ink); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--c); box-shadow: 0 0 16px var(--c), inset 0 0 10px rgba(255,255,255,.06); background: rgba(5, 7, 15, .6); }
+.lamp { position: absolute; z-index: 1; left: 0; top: 0; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(170, 120, 255, .08), transparent 65%); transform: translate(var(--mx, -999px), var(--my, -999px)); }
+
+.no-webgl #sky { display: none; }
+
+/* ---------- Sezioni ---------- */
+.band-sec { border-top: 1px solid var(--line); padding-block: 72px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1120px; margin: 0 auto; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+.cols h3 { font-family: var(--f-display); font-weight: 600; font-size: 18px; margin: 0 0 14px; }
+.cols p { margin: 0 0 12px; color: var(--muted); max-width: 62ch; }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.feed li { display: grid; grid-template-columns: 10px 1fr; gap: 12px; align-items: baseline; }
+.feed li i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.feed b { display: block; font-weight: 700; }
+.feed small { font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); }
+.note { font-size: 13px; color: var(--faint); }
+.tlink { color: var(--ink); text-decoration-color: var(--faint); text-underline-offset: 3px; }
+footer.band-sec { padding-block: 40px 56px; }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+footer p { margin: 0; color: var(--faint); font-size: 14px; max-width: 70ch; }
+footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--red), var(--orange), var(--yellow), var(--green), var(--azure), var(--blue), var(--violet), transparent); opacity: .8; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 759px) {
+  .top nav { display: none; }
+  .hero { height: auto; max-height: none; min-height: 0; display: flex; flex-direction: column; }
+  .intro { position: relative; top: auto; left: auto; padding: 96px 20px 0; max-width: none; }
+  .intro h1 { font-size: 30px; }
+  .stage { position: relative; inset: auto; height: 620px; flex: none; }
+  .detail { position: relative; left: auto; bottom: auto; margin: 0 16px 32px; width: auto; }
+  .slot { grid-template-columns: 1fr; }
+  .slot .nm { font-size: 10.5px; }
+  .slot .s { grid-column: 1; font-size: 12px; }
+  .slot[data-state="online"] .t { font-size: 14.5px; }
+  .slot .t { font-size: 13px; }
+  .cols { grid-template-columns: 1fr; gap: 40px; }
+  footer .wrap { grid-template-columns: 1fr; }
+  .band-sec { padding-block: 56px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { .slot { transition: none; } }
+</style>
+
+<header class="top">
+  <a class="brand" href="#"><img src="media/rb-icon.svg" alt=""><span>Rainbow Bits</span></a>
+  <nav aria-label="Principale">
+    <a href="#spettro">Libri</a>
+    <a href="#chi-sono">Chi sono</a>
+    <a href="#v4v">Value for value</a>
+    <a href="#contatti">Contatti</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="spettro">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="lamp" aria-hidden="true"></div>
+
+    <div class="intro">
+      <p class="eyebrow">Spettro visibile · 380–780 nm</p>
+      <h1>Una sorgente, <em>sette colori</em></h1>
+      <p>Rainbow Bits raccoglie i miei libri open source per la scuola. Ogni colore dello spettro porta a un libro.</p>
+    </div>
+
+    <div class="stage" aria-hidden="true"></div>
+    <div class="slots" id="slots" role="list" aria-label="Libri di Rainbow Bits"></div>
+    <div class="unseen" id="unseen"></div>
+
+    <aside class="detail" aria-live="polite">
+      <div class="body" id="detail"></div>
+      <button class="reveal" id="reveal" type="button" aria-pressed="false">Mostra l’invisibile</button>
+    </aside>
+  </section>
+
+  <section class="band-sec" id="chi-sono">
+    <div class="wrap cols">
+      <div>
+        <h3>Chi sono</h3>
+        <p>Sono Marco Farina e insegno. Scrivo libri liberi da leggere, usare e modificare, pensati per la scuola secondaria di secondo grado ma aperti a chiunque voglia imparare.</p>
+        <p>Ogni libro ha un colore. I colori ancora spenti sono i libri che devono arrivare.</p>
+      </div>
+      <div>
+        <h3>Dal laboratorio</h3>
+        <ul class="feed">
+          <li style="--c: var(--azure)"><i></i><div><b>Python Doesn’t Byte</b><small>esempio · ultimo aggiornamento del libro</small></div></li>
+          <li style="--c: var(--orange)"><i></i><div><b>Cypherpunk 2140</b><small>esempio · annuncio in arrivo</small></div></li>
+          <li style="--c: var(--violet)"><i></i><div><b>Dall’ultravioletto</b><small>esempio · un piccolo progetto</small></div></li>
+        </ul>
+        <p class="note">Anteprima: qui comparirebbero in automatico le novità dei sottositi.</p>
+      </div>
+      <div id="v4v">
+        <h3>Value for value</h3>
+        <p>I libri sono gratuiti. Se ti sono stati utili, restituisci il valore che pensi abbiano: una segnalazione, un contributo al codice, una donazione.</p>
+        <p id="contatti">Il codice di tutto è su <a class="tlink" href="https://github.com/marcofarina">GitHub</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band-sec">
+  <div class="wrap">
+    <p>Perché sette colori? Lo spettro visibile è continuo, e i colori sono infiniti. Fu Isaac Newton a dividerlo in sette, per analogia con le sette note della scala musicale. Le lunghezze d’onda indicate accanto ai libri sono valori tipici, non confini netti.</p>
+    <div class="spectrum" aria-hidden="true"></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script>
+(() => {
+  // ---------- Dati: canali dello spettro (0 = IR, 8 = UV) ----------
+  const SLOTS = [
+    { band: 'IR', nm: '> 780 nm', color: '#ff2a2a', hidden: true, label: 'Infrarosso' },
+    { name: 'Rosso', nm: '700 nm', color: '#ff3355', state: 'free' },
+    { name: 'Arancione', nm: '610 nm', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', sub: 'Libro · Bitcoin',
+      desc: 'Il libro su Bitcoin: denaro, reti, incentivi. Nasce insieme al libro di crittografia, il colore accanto.', link: 3 },
+    { name: 'Giallo', nm: '580 nm', color: '#ffd21a', state: 'soon', title: 'Crittografia', sub: 'Libro · Crittografia',
+      desc: 'Dai cifrari classici alle firme digitali. È la base su cui poggia Cypherpunk 2140, il colore accanto.', link: 2 },
+    { name: 'Verde', nm: '530 nm', color: '#2fd06a', state: 'free' },
+    { name: 'Azzurro', nm: '490 nm', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', sub: 'Libro · Python per le superiori',
+      desc: 'Un libro open source di informatica su Python per la scuola secondaria di secondo grado.', href: 'https://python.rainbowbits.cloud/', logo: 'media/python-doesnt-byte.png', cta: 'Apri il libro' },
+    { name: 'Blu', nm: '460 nm', color: '#4a6dff', state: 'free' },
+    { name: 'Viola', nm: '410 nm', color: '#a35cff', state: 'free' },
+    { band: 'UV', nm: '< 380 nm', color: '#b07bff', hidden: true, label: 'Ultravioletto' },
+  ];
+  const HIDDEN = {
+    0: [{ t: 'Piccolo progetto α' }, { t: 'Piccolo progetto β' }],
+    8: [{ t: 'Piccolo progetto γ' }, { t: 'Piccolo progetto δ' }],
+  };
+  const NC = SLOTS.length;
+  const BASE = { free: .2, soon: .55, online: 1 };
+
+  const hero = document.querySelector('.hero');
+  const stage = document.querySelector('.stage');
+  const canvas = document.getElementById('sky');
+  const slotsEl = document.getElementById('slots');
+  const unseenEl = document.getElementById('unseen');
+  const detailEl = document.getElementById('detail');
+  const revealBtn = document.getElementById('reveal');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Etichette ----------
+  const labelEls = SLOTS.map((s, c) => {
+    let el;
+    if (s.hidden) {
+      el = document.createElement('div');
+      el.className = 'slot band';
+      el.innerHTML = `<span class="nm">${s.nm}</span><span class="t">${s.band} · invisibile</span>`;
+    } else {
+      el = document.createElement(s.href ? 'a' : 'div');
+      if (s.href) el.href = s.href; else el.tabIndex = 0;
+      el.className = 'slot';
+      el.dataset.state = s.state;
+      el.setAttribute('role', 'listitem');
+      const title = s.title || 'Colore libero';
+      const sub = s.sub || (s.state === 'free' ? 'In attesa di un libro' : '');
+      el.innerHTML = `<span class="nm">${s.nm}</span><span class="t">${title}</span>` +
+        (s.state === 'soon' ? `<span class="s">${sub} · in arrivo</span>` : `<span class="s">${sub}</span>`);
+      el.addEventListener('pointerenter', () => { labelHover = c; select(c); });
+      el.addEventListener('pointerleave', () => { labelHover = -1; });
+      el.addEventListener('focus', () => { labelHover = c; select(c); });
+      el.addEventListener('blur', () => { labelHover = -1; });
+    }
+    el.style.setProperty('--c', s.color);
+    slotsEl.appendChild(el);
+    return el;
+  });
+  const chipRows = {};
+  for (const c of [0, 8]) {
+    const row = document.createElement('div');
+    row.className = 'chips';
+    row.innerHTML = HIDDEN[c].map(h => `<a class="chip" href="#" title="Segnaposto">${h.t}</a>`).join('');
+    row.style.setProperty('--c', SLOTS[c].color);
+    row.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', e => e.preventDefault());
+      a.addEventListener('focus', () => unseenEl.classList.add('all'));
+      a.addEventListener('blur', () => { if (!revealAll) unseenEl.classList.remove('all'); });
+    });
+    unseenEl.appendChild(row);
+    chipRows[c] = row;
+  }
+
+  // ---------- Pannello dettagli ----------
+  const swatches = st => SLOTS.filter(s => s.state === st).map(s => `<i style="--c:${s.color}"></i>`).join('');
+  function renderDetail(c) {
+    if (c < 0) {
+      detailEl.innerHTML = `
+        <p class="eyebrow">Lo spettro oggi</p>
+        <ul class="legend">
+          <li><span class="sw">${swatches('online')}</span>1 libro online</li>
+          <li><span class="sw">${swatches('soon')}</span>2 libri in arrivo</li>
+          <li><span class="sw">${SLOTS.filter(s => s.state === 'free').map(() => '<i class="off"></i>').join('')}</span>4 colori liberi</li>
+        </ul>
+        <p>Passa su un raggio per esplorarlo. Oltre il rosso e oltre il viola c’è dell’altro, ma a occhio nudo non si vede.</p>`;
+      return;
+    }
+    const s = SLOTS[c];
+    const head = `<p class="eyebrow" style="color:${s.color}">${s.nm} · ${s.name}</p>`;
+    if (s.state === 'online') {
+      detailEl.innerHTML = head + `<div class="row">${s.logo ? `<img src="${s.logo}" alt="">` : ''}<div><h2>${s.title}</h2></div></div>
+        <p style="margin-top:10px">${s.desc}</p>
+        <a class="cta" href="${s.href}" style="--c:${s.color}">${s.cta} →</a>`;
+    } else if (s.state === 'soon') {
+      detailEl.innerHTML = head + `<h2>${s.title}</h2><p>${s.desc}</p><span class="pill" style="color:${s.color}">In arrivo</span>`;
+    } else {
+      detailEl.innerHTML = head + `<h2>Colore libero</h2><p>Questo raggio aspetta il suo libro. Quando arriverà, si accenderà.</p>`;
+    }
+  }
+  let selected = -2;
+  function select(c) {
+    if (c === selected) return;
+    selected = c;
+    renderDetail(c);
+  }
+  select(-1);
+
+  let revealAll = false;
+  revealBtn.addEventListener('click', () => {
+    revealAll = !revealAll;
+    revealBtn.setAttribute('aria-pressed', revealAll);
+    revealBtn.textContent = revealAll ? 'Nascondi l’invisibile' : 'Mostra l’invisibile';
+    unseenEl.classList.toggle('all', revealAll);
+  });
+
+  // ---------- Puntatore ----------
+  const mouse = { x: -9999, y: -9999, in: false, nx: 0, ny: 0 };
+  let labelHover = -1, rayHover = -1;
+  function setPointer(e) {
+    const r = hero.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.in = true;
+    mouse.nx = mouse.x / r.width - .5; mouse.ny = mouse.y / r.height - .5;
+    hero.style.setProperty('--mx', mouse.x + 'px');
+    hero.style.setProperty('--my', mouse.y + 'px');
+  }
+  hero.addEventListener('pointermove', setPointer);
+  hero.addEventListener('pointerdown', setPointer);
+  hero.addEventListener('pointerleave', () => {
+    mouse.in = false; mouse.x = mouse.y = -9999; rayHover = -1;
+    hero.style.setProperty('--mx', '-999px'); hero.style.setProperty('--my', '-999px');
+  });
+
+  // ---------- Geometria dello spettro ----------
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp2 = (a, b, t) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+  let L = null;
+  function computeLayout() {
+    const hr = hero.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+    const W = hr.width, H = hr.height;
+    const ox = sr.left - hr.left, oy = sr.top - hr.top, w = sr.width, h = sr.height;
+    const mobile = W < 760;
+    let P, s, ax, ys;
+    if (!mobile) {
+      s = clamp(Math.min(w, h) * .2, 90, 180);
+      P = { x: ox + w * .37, y: oy + h * .5 };
+      ax = ox + Math.min(w * .63, w - 340);
+      ys = [.05, .95, .17, .85];
+    } else {
+      s = clamp(w * .22, 70, 110);
+      P = { x: ox + w * .17, y: oy + h * .42 };
+      ax = ox + w * .38;
+      ys = [.03, .975, .12, .88];
+    }
+    const T = { x: P.x, y: P.y - .577 * s }, BL = { x: P.x - .5 * s, y: P.y + .289 * s }, BR = { x: P.x + .5 * s, y: P.y + .289 * s };
+    const E = lerp2(T, BL, .58), X = lerp2(T, BR, .5);
+    const S = mobile ? { x: E.x - .35 * (E.y + 40), y: -40 } : { x: -40, y: E.y + (E.x + 40) * .14 };
+    const A = SLOTS.map((_, c) => {
+      let y;
+      if (c === 0) y = oy + h * ys[0];
+      else if (c === NC - 1) y = oy + h * ys[1];
+      else y = oy + h * (ys[2] + (ys[3] - ys[2]) * (c - 1) / (NC - 3));
+      return { x: ax, y };
+    });
+    const seg = (a, b) => { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy); return { l, dx: dx / l, dy: dy / l, nx: -dy / l, ny: dx / l }; };
+    const s1 = seg(S, E), s2 = seg(E, X), s3 = A.map(a => seg(X, a));
+    const total = s3.map(r => s1.l + s2.l + r.l);
+    const lw = Math.max(180, W - ax - 16 - 24);
+    return { W, H, mobile, P, s, T, BL, BR, E, X, S, A, s1, s2, s3, total, ax, lw,
+      beamW: mobile ? 5 : 7, rayW: mobile ? 7 : 12, cube: mobile ? 4 : 5.2 };
+  }
+  function placeLabels() {
+    SLOTS.forEach((s, c) => {
+      const el = labelEls[c];
+      el.style.setProperty('--x', (L.ax + 16) + 'px');
+      el.style.setProperty('--y', L.A[c].y + 'px');
+      el.style.setProperty('--lw', L.lw + 'px');
+    });
+    chipRows[0].style.setProperty('--x', (L.ax + 16) + 'px');
+    chipRows[0].style.setProperty('--y', (L.A[0].y + (L.mobile ? 26 : 30)) + 'px');
+    chipRows[8].style.setProperty('--x', (L.ax + 16) + 'px');
+    chipRows[8].style.setProperty('--y', (L.A[8].y - (L.mobile ? 26 : 30)) + 'px');
+    for (const c of [0, 8]) chipRows[c].style.setProperty('--lw', L.lw + 'px');
+  }
+  function distSeg(px, py, a, b) {
+    const vx = b.x - a.x, vy = b.y - a.y;
+    const t = clamp(((px - a.x) * vx + (py - a.y) * vy) / (vx * vx + vy * vy), 0, 1);
+    return Math.hypot(px - a.x - vx * t, py - a.y - vy * t);
+  }
+
+  // ---------- Fallback senza WebGL ----------
+  let renderer;
+  try {
+    if (!window.THREE) throw new Error('three');
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  } catch (err) {
+    hero.classList.add('no-webgl');
+    L = computeLayout(); placeLabels();
+    addEventListener('resize', () => { L = computeLayout(); placeLabels(); });
+    return;
+  }
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(0, 1, 0, -1, -1000, 1000);
+  camera.position.z = 500;
+  scene.add(new THREE.AmbientLight(0xffffff, .62));
+  const sun = new THREE.DirectionalLight(0xffffff, .85);
+  sun.position.set(.5, .9, 1);
+  scene.add(sun);
+
+  // Texture morbide generate al volo
+  function canvasTex(w, h, draw) {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    draw(c.getContext('2d'), w, h);
+    return new THREE.CanvasTexture(c);
+  }
+  const glowTex = canvasTex(64, 64, (g, w) => {
+    const gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.25, 'rgba(255,255,255,.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, w, w);
+  });
+  const rayTex = canvasTex(256, 32, (g, w, h) => {
+    for (let x = 0; x < w; x++) {
+      const u = x / (w - 1);
+      const along = u < .08 ? .5 + u / .08 * .5 : 1 - (u - .08) / .92 * .7;
+      const gr = g.createLinearGradient(0, 0, 0, h);
+      gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.5, `rgba(255,255,255,${along})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = gr; g.fillRect(x, 0, 1, h);
+    }
+  });
+
+  // Stelle
+  const stars = new THREE.Group();
+  scene.add(stars);
+  function buildStars() {
+    stars.children.forEach(o => { o.geometry.dispose(); o.material.dispose(); });
+    stars.clear();
+    [[Math.round(L.W * L.H / 2600), 1.6, .75], [Math.round(L.W * L.H / 9000), 2.6, .45]].forEach(([n, size, op]) => {
+      const pos = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) { pos[i * 3] = Math.random() * (L.W + 80) - 40; pos[i * 3 + 1] = -(Math.random() * (L.H + 80) - 40); pos[i * 3 + 2] = -300; }
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      stars.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xa9b4e6, size: size * renderer.getPixelRatio(), sizeAttenuation: false, transparent: true, opacity: op, depthWrite: false })));
+    });
+  }
+
+  // Raggi, fascio e prisma
+  const optics = new THREE.Group();
+  scene.add(optics);
+  const rayMats = [];
+  let prism, prismEdges, exitGlow, beamMat;
+  function quad(a, b, wa, wb, mat, z) {
+    const ux = b.x - a.x, uy = b.y - a.y, l = Math.hypot(ux, uy), nx = -uy / l, ny = ux / l;
+    const p = [
+      a.x + nx * wa, -(a.y + ny * wa), z, a.x - nx * wa, -(a.y - ny * wa), z,
+      b.x + nx * wb, -(b.y + ny * wb), z, b.x - nx * wb, -(b.y - ny * wb), z];
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+    g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 0, 0, 1, 1, 1, 0], 2));
+    g.setIndex([0, 1, 2, 2, 1, 3]);
+    return new THREE.Mesh(g, mat);
+  }
+  const additive = (color, opacity, map) => new THREE.MeshBasicMaterial({ color, map, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false });
+  function buildOptics() {
+    optics.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+    optics.clear();
+    rayMats.length = 0;
+    SLOTS.forEach((s, c) => {
+      const m = additive(new THREE.Color(s.color), 0, rayTex);
+      rayMats.push(m);
+      optics.add(quad(L.X, L.A[c], 2, L.rayW + 3, m, -20));
+    });
+    beamMat = additive(0xffffff, .16, rayTex);
+    optics.add(quad(L.S, L.E, L.beamW + 6, L.beamW + 4, beamMat, -20));
+    optics.add(quad(L.E, L.X, L.beamW + 4, 3, additive(0xffffff, .12, rayTex), -20));
+
+    const sh = new THREE.Shape();
+    sh.moveTo(0, .577 * L.s); sh.lineTo(-.5 * L.s, -.289 * L.s); sh.lineTo(.5 * L.s, -.289 * L.s); sh.closePath();
+    const g = new THREE.ExtrudeGeometry(sh, { depth: L.s * .55, bevelEnabled: false });
+    g.translate(0, 0, -L.s * .275);
+    prism = new THREE.Group();
+    prism.position.set(L.P.x, -L.P.y, 0);
+    prism.add(new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color: 0x9fb6ff, transparent: true, opacity: .09, depthWrite: false })));
+    prismEdges = new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({ color: 0xd8e4ff, transparent: true, opacity: .55 }));
+    prism.add(prismEdges);
+    optics.add(prism);
+
+    exitGlow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), additive(0xffffff, .3, glowTex));
+    exitGlow.position.set(L.X.x, -L.X.y, -10);
+    exitGlow.scale.setScalar(L.s * 1.1);
+    optics.add(exitGlow);
+  }
+
+  // ---------- I bit ----------
+  const MAXN = 2600;
+  const cubes = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshLambertMaterial({ color: 0xffffff }), MAXN);
+  const glows = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), additive(0xffffff, .55, glowTex), MAXN);
+  cubes.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  glows.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  cubes.frustumCulled = glows.frustumCulled = false;
+  scene.add(glows, cubes);
+  const ch = new Uint8Array(MAXN), t = new Float32Array(MAXN), jit = new Float32Array(MAXN), jz = new Float32Array(MAXN),
+    size = new Float32Array(MAXN), speed = new Float32Array(MAXN), r0 = new Float32Array(MAXN * 2), rs = new Float32Array(MAXN * 2),
+    offX = new Float32Array(MAXN), offY = new Float32Array(MAXN);
+  let N = 0;
+  const WEIGHT = SLOTS.map(s => s.hidden ? 110 : s.state === 'online' ? 300 : s.state === 'soon' ? 150 : 70);
+  function spawnAll() {
+    const k = clamp(L.W * L.H / (1280 * 800), .45, 1.3);
+    N = 0;
+    SLOTS.forEach((_, c) => {
+      const n = Math.round(WEIGHT[c] * k);
+      for (let i = 0; i < n && N < MAXN; i++, N++) {
+        ch[N] = c; t[N] = Math.random() * L.total[c];
+        jit[N] = (Math.random() * 2 - 1) * Math.random() ** .5; jz[N] = Math.random() * 30 - 15;
+        size[N] = L.cube * (.55 + Math.random() * .75); speed[N] = 95 + Math.random() * 70;
+        r0[N * 2] = Math.random() * 6.3; r0[N * 2 + 1] = Math.random() * 6.3;
+        rs[N * 2] = (Math.random() - .5) * 3; rs[N * 2 + 1] = (Math.random() - .5) * 3;
+        offX[N] = offY[N] = 0;
+      }
+    });
+    cubes.count = glows.count = N;
+  }
+
+  const slotCol = SLOTS.map(s => new THREE.Color(s.color));
+  const hl = new Float32Array(NC), vis = new Float32Array(NC);
+  const dummy = new THREE.Object3D(), col = new THREE.Color(), white = new THREE.Color(1, .98, .95);
+
+  function resize() {
+    L = computeLayout();
+    renderer.setSize(L.W, L.H, false);
+    camera.left = 0; camera.right = L.W; camera.top = 0; camera.bottom = -L.H;
+    camera.updateProjectionMatrix();
+    buildStars(); buildOptics(); spawnAll(); placeLabels();
+  }
+  let rt;
+  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 120); });
+  document.fonts && document.fonts.ready.then(() => resize());
+  resize();
+
+  // Clic o tocco sui raggi
+  canvas.addEventListener('click', () => {
+    if (rayHover >= 0) {
+      select(rayHover);
+      const s = SLOTS[rayHover];
+      if (s.href && !matchMedia('(pointer: coarse)').matches) labelEls[rayHover].click();
+    } else select(-1);
+  });
+
+  // ---------- Animazione ----------
+  let running = true, last = performance.now();
+  new IntersectionObserver(([e]) => { running = e.isIntersecting; if (running) { last = performance.now(); requestAnimationFrame(frame); } }).observe(hero);
+  const motion = reduced ? 0 : 1;
+
+  function frame(now) {
+    if (!running) return;
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    const time = now / 1000;
+
+    // quale raggio è sotto il puntatore
+    rayHover = -1;
+    if (mouse.in && mouse.x > L.X.x + 10) {
+      let best = L.mobile ? 22 : 16;
+      for (let c = 1; c < NC - 1; c++) {
+        const d = distSeg(mouse.x, mouse.y, L.X, L.A[c]);
+        if (d < best) { best = d; rayHover = c; }
+      }
+    }
+    const hov = labelHover >= 0 ? labelHover : rayHover;
+    if (rayHover >= 0 && labelHover < 0 && !matchMedia('(pointer: coarse)').matches) select(rayHover);
+    canvas.style.cursor = hov >= 0 && SLOTS[hov].href ? 'pointer' : '';
+    const focus = hov >= 0 ? hov : selected;
+    const linked = focus >= 0 ? SLOTS[focus].link : undefined;
+    for (let c = 0; c < NC; c++) {
+      const target = c === hov ? 1 : c === focus ? .55 : c === linked ? .45 : 0;
+      hl[c] += (target - hl[c]) * Math.min(1, dt * 7);
+      labelEls[c].classList.toggle('hl', c === focus || c === hov);
+      if (SLOTS[c].hidden) {
+        const d = mouse.in ? distSeg(mouse.x, mouse.y, L.X, L.A[c]) : 9999;
+        const tv = revealAll ? 1 : clamp(1 - d / 170, 0, 1) ** 1.4;
+        vis[c] += (tv - vis[c]) * Math.min(1, dt * 8);
+        rayMats[c].opacity = vis[c] * .22;
+      } else {
+        const b = BASE[SLOTS[c].state];
+        rayMats[c].opacity = (b * .17 + hl[c] * .22) * (1 + Math.sin(time * 1.3 + c) * .06);
+      }
+    }
+
+    // prisma che respira e segue il mouse
+    prism.rotation.x = .22 + Math.sin(time * .5) * .05 * motion + mouse.ny * .25 * motion;
+    prism.rotation.y = -.38 + Math.cos(time * .4) * .06 * motion + mouse.nx * .3 * motion;
+    exitGlow.material.opacity = .26 + Math.sin(time * 2) * .04 * motion;
+    stars.position.set(-mouse.nx * 14 * motion, mouse.ny * 10 * motion, 0);
+
+    const { S, E, X, s1, s2, s3, total, beamW, rayW } = L;
+    const R = L.mobile ? 60 : 85;
+    for (let i = 0; i < N; i++) {
+      const c = ch[i], h = hl[c];
+      t[i] += speed[i] * (1 + h * 1.4) * dt * motion;
+      if (t[i] > total[c]) { t[i] -= total[c]; jit[i] = (Math.random() * 2 - 1) * Math.random() ** .5; }
+      const tt = t[i];
+      let x, y, nx, ny, spread, q = -1, sc = size[i];
+      if (tt < s1.l) {
+        x = S.x + s1.dx * tt; y = S.y + s1.dy * tt; nx = s1.nx; ny = s1.ny; spread = beamW; sc *= .85;
+      } else if (tt < s1.l + s2.l) {
+        const p = tt - s1.l;
+        x = E.x + s2.dx * p; y = E.y + s2.dy * p; nx = s2.nx; ny = s2.ny; spread = beamW * (1 - p / s2.l * .5); sc *= .8;
+      } else {
+        const r = s3[c]; q = tt - s1.l - s2.l; const u = q / r.l;
+        x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny; spread = beamW * .4 + u * rayW;
+        const tail = r.l - q; if (tail < 50) sc *= tail / 50;
+        sc *= 1 + h * .55;
+      }
+      if (tt < 30) sc *= tt / 30;
+      x += nx * jit[i] * spread; y += ny * jit[i] * spread;
+
+      // l’ombrello: i bit scansano il puntatore
+      let tx = 0, ty = 0;
+      if (mouse.in && motion) {
+        const dx = x - mouse.x, dy = y - mouse.y, d = Math.hypot(dx, dy);
+        if (d < R && d > .01) { const f = (1 - d / R) ** 2 * 42; tx = dx / d * f; ty = dy / d * f; }
+      }
+      offX[i] += (tx - offX[i]) * .18; offY[i] += (ty - offY[i]) * .18;
+      x += offX[i]; y += offY[i];
+
+      // colore: bianco finché non esce dal prisma, poi il colore del raggio
+      let b;
+      if (q < 0) { col.copy(white); b = 1; }
+      else {
+        col.copy(white).lerp(slotCol[c], Math.min(1, q / 55));
+        const fade = Math.min(1, q / 55);
+        // i raggi spenti si assottigliano invece di scurirsi: un cubo scuro coprirebbe le stelle
+        const base = SLOTS[c].hidden ? vis[c] * 1.1 : BASE[SLOTS[c].state] + h * .7;
+        const lvl = 1 + (base - 1) * fade;
+        b = Math.max(lvl, .5);
+        sc *= SLOTS[c].hidden ? 1 + (Math.min(1, vis[c] * 1.4) - 1) * fade : 1 + (Math.min(1, .45 + lvl * .55) - 1) * fade;
+      }
+      dummy.position.set(x, -y, jz[i]);
+      dummy.rotation.set(r0[i * 2] + time * rs[i * 2] * motion, r0[i * 2 + 1] + time * rs[i * 2 + 1] * motion, 0);
+      dummy.scale.setScalar(Math.max(sc, .001));
+      dummy.updateMatrix();
+      cubes.setMatrixAt(i, dummy.matrix);
+      dummy.rotation.set(0, 0, 0);
+      dummy.position.z = -12;
+      dummy.scale.setScalar(Math.max(sc, .001) * 4.2);
+      dummy.updateMatrix();
+      glows.setMatrixAt(i, dummy.matrix);
+
+      col.multiplyScalar(b);
+      cubes.setColorAt(i, col);
+      glows.setColorAt(i, col.multiplyScalar(.45));
+    }
+    cubes.instanceMatrix.needsUpdate = glows.instanceMatrix.needsUpdate = true;
+    cubes.instanceColor.needsUpdate = glows.instanceColor.needsUpdate = true;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+
+  console.log('%c Rainbow Bits ', 'background:linear-gradient(90deg,#ff3355,#ff8a1f,#ffd21a,#2fd06a,#29b6ff,#4a6dff,#a35cff);color:#05070f;font:800 16px sans-serif;padding:6px 10px;border-radius:4px',
+    '\nHai aperto la console: ottimo istinto. Ora prova a cercare quello che sta oltre il viola.');
+})();
+</script>
