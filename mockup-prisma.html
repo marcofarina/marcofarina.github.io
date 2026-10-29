@@ -218,7 +218,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     { name: 'Rosso', color: '#ff3355', state: 'free' },
     { name: 'Arancione', color: '#ff8a1f', state: 'soon', title: 'Cypherpunk 2140', subject: 'Bitcoin', sub: 'Libro su Bitcoin',
       desc: 'Il libro su Bitcoin: denaro, reti, incentivi. Nasce insieme al libro di crittografia, il colore accanto.', link: 3 },
-    { name: 'Giallo', color: '#ffd21a', state: 'soon', title: 'Crittografia', subject: 'Crittografia', sub: 'Libro di crittografia',
+    { name: 'Giallo', color: '#ffd21a', state: 'soon', title: 'Crittografia', subject: 'Sicurezza informatica', sub: 'Libro di crittografia',
       desc: 'Dai cifrari classici alle firme digitali. È la base su cui poggia Cypherpunk 2140, il colore accanto.', link: 2 },
     { name: 'Verde', color: '#2fd06a', state: 'free' },
     { name: 'Azzurro', color: '#29b6ff', state: 'online', title: 'Python Doesn’t Byte', subject: 'Informatica', sub: 'Libro di informatica con Python',
@@ -230,17 +230,17 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
   ];
   // Satelliti: progetti minori affini a un libro, su un raggio sottile accanto al suo
   const SATS = [
-    { parent: 3, title: 'Macchina Enigma', subject: 'Crittografia', status: 'in sviluppo',
+    { parent: 3, title: 'Macchina Enigma', subject: 'Sicurezza informatica', status: 'in sviluppo',
       desc: 'Una macchina Enigma da smontare e far girare nel browser: rotori, riflettore, pannello dei collegamenti.' },
   ];
   const tint = (hex, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * (1 - k) + 255 * k).toString(16).padStart(2, '0')).join('');
   SATS.forEach(s => SLOTS.push({ ...s, sat: true, state: 'soon', name: SLOTS[s.parent].name, color: tint(SLOTS[s.parent].color, .3) }));
   const HIDDEN = {
-    0: [{ t: 'Risorse per docenti', href: '#gumroad' }, { t: 'Progetto concluso α' }],
+    0: [{ t: 'Risorse per docenti' }, { t: 'Progetto concluso α' }],
     8: [{ t: 'Esperimento γ' }, { t: 'Esperimento δ' }],
   };
   const NC = SLOTS.length;
-  const BASE = { free: .2, soon: .55, online: 1 };
+  const BASE = { free: .3, soon: .55, online: 1 };
   const related = (f, c) => f >= 0 && f !== c && (SLOTS[f].link === c || SLOTS[c].parent === f || SLOTS[f].parent === c);
 
   const hero = document.querySelector('.hero');
@@ -388,7 +388,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     const A = SLOTS.map((s, c) => ({ x: ax, y: s.sat ? mainY(s.parent) + 45 : mainY(c) }));
     const seg = (a, b) => { const dx = b.x - a.x, dy = b.y - a.y, l = Math.hypot(dx, dy); return { l, dx: dx / l, dy: dy / l, nx: -dy / l, ny: dx / l }; };
     const s1 = seg(S, E), s2 = seg(E, X), s3 = A.map(a => seg(X, a));
-    const reach = SLOTS.map(s => s.state === 'free' ? .58 : 1);
+    const reach = SLOTS.map(() => 1);
     const total = s3.map((r, c) => s1.l + s2.l + r.l * reach[c]);
     const lw = Math.max(180, W - ax - 16 - 24);
     return { W, H, mobile, P, s, T, BL, BR, E, X, S, A, s1, s2, s3, reach, total, ax, lw,
@@ -494,7 +494,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     SLOTS.forEach((s, c) => {
       const m = additive(new THREE.Color(s.color), 0, rayTex);
       rayMats.push(m);
-      optics.add(quad(L.X, lerp2(L.X, L.A[c], L.reach[c]), 2, (s.sat ? .4 : s.state === 'free' ? 2.6 : 1) * L.rayW + 3, m, -20));
+      optics.add(quad(L.X, lerp2(L.X, L.A[c], L.reach[c]), 2, (s.sat ? .4 : s.state === 'free' ? 1.3 : 1) * L.rayW + 3, m, -20));
     });
     beamMat = additive(0xffffff, .16, rayTex);
     optics.add(quad(L.S, L.E, L.beamW + 6, L.beamW + 4, beamMat, -20));
@@ -529,7 +529,7 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
     size = new Float32Array(MAXN), speed = new Float32Array(MAXN), r0 = new Float32Array(MAXN * 2), rs = new Float32Array(MAXN * 2),
     offX = new Float32Array(MAXN), offY = new Float32Array(MAXN);
   let N = 0;
-  const WEIGHT = SLOTS.map(s => s.hidden ? 110 : s.sat ? 70 : s.state === 'online' ? 300 : s.state === 'soon' ? 150 : 70);
+  const WEIGHT = SLOTS.map(s => s.hidden ? 110 : s.sat ? 70 : s.state === 'free' ? 150 : s.state === 'online' ? 300 : s.state === 'soon' ? 150 : 70);
   function spawnAll() {
     const k = clamp(L.W * L.H / (1280 * 800), .45, 1.3);
     N = 0;
@@ -633,9 +633,9 @@ footer .spectrum { height: 6px; border-radius: 3px; background: linear-gradient(
       } else {
         const r = s3[c]; q = tt - s1.l - s2.l; const u = q / r.l, free = SLOTS[c].state === 'free';
         x = X.x + r.dx * q; y = X.y + r.dy * q; nx = r.nx; ny = r.ny;
-        spread = beamW * .4 + u * rayW * (SLOTS[c].sat ? .4 : free ? 4.5 : 1);
-        // i raggi senza progetto si sfrangiano e si spengono nel vuoto
-        const len = r.l * reach[c], tail = len - q, fadeLen = free ? len * .6 : 50;
+        spread = beamW * .4 + u * rayW * (SLOTS[c].sat ? .4 : free ? 1.4 : 1);
+        // i raggi senza progetto restano una traccia tenue che si spegne prima di arrivare
+        const len = r.l * reach[c], tail = len - q, fadeLen = free ? len * .35 : 50;
         if (tail < fadeLen) sc *= tail / fadeLen;
         sc *= 1 + h * .55;
       }
